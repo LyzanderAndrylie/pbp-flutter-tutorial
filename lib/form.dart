@@ -20,6 +20,22 @@ class _MyFormPageState extends State<MyFormPage> {
   List<String> listKelasPBP = ['A', 'B', 'C', 'D', 'E', 'F', 'KI'];
   bool _nilaiSwitch = false;
 
+  String? _getJenjang() {
+    String? jenjang;
+
+    if (jenjangSarjana) {
+      jenjang = "Sarjana";
+    } else if (jenjangDiploma) {
+      jenjang = "Diploma";
+    } else if (jenjangMagister) {
+      jenjang = "Magister";
+    } else if (jenjangDoktor) {
+      jenjang = "Doktor";
+    }
+
+    return jenjang;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -224,7 +240,54 @@ class _MyFormPageState extends State<MyFormPage> {
                                       MaterialStateProperty.all(Colors.blue),
                                 ),
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {}
+                                  if (_formKey.currentState!.validate()) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Dialog(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          elevation: 15,
+                                          child: Container(
+                                            child: ListView(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20, bottom: 20),
+                                              shrinkWrap: true,
+                                              children: <Widget>[
+                                                const Center(
+                                                    child:
+                                                        Text('Informasi Data')),
+                                                const SizedBox(height: 20),
+                                                // Munculkan informasi yang didapat dari form
+                                                Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text('Nama: $_namaLengkap'),
+                                                    Text(
+                                                        "Jenjang: ${_getJenjang() ?? "Belum ditentukan"}"),
+                                                    Text(
+                                                        'Umur: ${umur.round()}'),
+                                                    Text('Kelas: $kelasPBP'),
+                                                    Text(
+                                                        'Practice Mode: $_nilaiSwitch')
+                                                  ],
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Kembali'),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                                 child: const Text(
                                   "Simpan",
