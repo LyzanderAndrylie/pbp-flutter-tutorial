@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_flutter_tutorial/form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,15 +15,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key});
 
-  final String title;
+  final String title = 'Flutter Demo Home Page';
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
